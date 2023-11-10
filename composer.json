@@ -1,0 +1,15 @@
+{
+    "name": "Pishgaman/WorkReport",
+    "description": "AccessLevel",
+    "authors": [{
+        "name": "-",
+        "email": "-"
+    }],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Pishgaman\\WorkReport\\": "src/"
+        }
+    }
+}
+
