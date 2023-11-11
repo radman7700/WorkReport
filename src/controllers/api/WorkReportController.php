@@ -143,6 +143,10 @@ class WorkReportController extends Controller
                     'column' => 'date',
                     'order' => 'desc',
                 ],
+                [
+                    'column' => 'id',
+                    'order' => 'desc',
+                ],                
             ],
             'with' => ['employee:username,id'],
             'conditions' => [
