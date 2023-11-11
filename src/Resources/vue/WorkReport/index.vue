@@ -8,7 +8,7 @@
 						<div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="addNewTaskLabel">ایجاد گزارش کار</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="date= '';start_time='';end_time='';description='';outcome='';project_task=''">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
@@ -34,14 +34,23 @@
                                     </div>
                                     <div class="col-sm-12 col-md-6">  
                                         <div class="form-group">
-                                            <label for="project_task">وظیفه پروژه</label>
-                                            <input type="text" class="form-control" id="project_task" v-model="project_task">
+                                            <label for="project_task">پروژه</label>
+                                            <select class="form-select" v-model="selectedOption" @change="handleOptionChange" aria-label="Default select example">
+                                                <option value="سوژه‌یابی">سوژه‌یابی</option>
+                                                <option value="مستندسازی">مستندسازی</option>
+                                                <option value="ارسال خبرنامه">ارسال خبرنامه (بولتن)</option>
+                                                <option value="ارسال خبر">ارسال خبر</option>
+                                                <option value="ارسال بصر">ارسال بصر</option>
+                                                <option value="برنامه نویسی">برنامه نویسی</option>                                                
+                                                <option value="آموزش">آموزش</option>                                                
+                                                <option value="6">سایر</option>
+                                            </select>
                                         </div>
                                     </div>                                     
                                     <div class="col-sm-12 col-md-6">  
                                         <div class="form-group">
-                                            <label for="location">مکان</label>
-                                            <input type="text" class="form-control" id="location" v-model="location">
+                                            <label for="project_task">پروژه</label>
+                                            <input type="text" class="form-control" id="project_task" :readonly="isReadOnly" v-model="project_task">                                       
                                         </div>  
                                     </div>                                     
                                     <div class="col-sm-12 col-md-6">                                
@@ -53,7 +62,10 @@
                                     <div class="col-sm-12 col-md-6">  
                                         <div class="form-group">
                                             <label for="outcome">نتیجه</label>
-                                            <textarea class="form-control" id="outcome" v-model="outcome" style="min-height:150px;"></textarea>
+                                            <textarea v-if="selectedOption != 'ارسال خبرنامه'" class="form-control" id="outcome" v-model="outcome" style="min-height:150px;"></textarea>
+                                            <select class="form-select" v-else v-model="outcome" @change="handleOptionChange" aria-label="Default select example">
+                                                <option v-for="item in Newsletter" :value="item.type">{{item.type}}</option>
+                                            </select>                                             
                                         </div>
                                     </div>                                                                                          
                                 </div>                                                          
@@ -84,7 +96,7 @@
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group">
                                             <label for="edit_date">تاریخ</label>
-                                            <input type="text" class="form-control datepicker" readonly  id="edit_date" v-model="edit_date" :gdate="edit_date">
+                                            <input type="text" class="form-control datepicker" readonly  id="edit_date" v-model="edit_date" :gdate="edit_date" >
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4">
@@ -101,16 +113,26 @@
                                     </div>
                                     <div class="col-sm-12 col-md-6">  
                                         <div class="form-group">
-                                            <label for="edit_project_task">وظیفه پروژه</label>
-                                            <input type="text" class="form-control" id="edit_project_task" v-model="edit_project_task">
+                                            <label for="project_task">پروژه</label>
+                                            <select class="form-select" v-model="selectedOption" @change="handleOptionChange" aria-label="Default select example">
+                                                <option value="سوژه‌یابی">سوژه‌یابی</option>
+                                                <option value="مستندسازی">مستندسازی</option>
+                                                <option value="ارسال خبرنامه">ارسال خبرنامه (بولتن)</option>
+                                                <option value="ارسال خبر">ارسال خبر</option>
+                                                <option value="ارسال بصر">ارسال بصر</option>
+                                                <option value="برنامه نویسی">برنامه نویسی</option>
+                                                <option value="آموزش">آموزش</option>                                                
+                                                <option value="6">سایر</option>
+                                            </select>
                                         </div>
                                     </div>                                     
                                     <div class="col-sm-12 col-md-6">  
                                         <div class="form-group">
-                                            <label for="edit_location">مکان</label>
-                                            <input type="text" class="form-control" id="edit_location" v-model="edit_location">
+                                            <label for="edit_project_task">پروژه</label>
+                                            <input type="text" class="form-control" id="edit_project_task" :readonly="isReadOnly" v-model="edit_project_task">
+                                           
                                         </div>  
-                                    </div>                                     
+                                    </div>                                    
                                     <div class="col-sm-12 col-md-6">                                
                                         <div class="form-group">
                                             <label for="edit_description">توضیحات</label>
@@ -120,7 +142,10 @@
                                     <div class="col-sm-12 col-md-6">  
                                         <div class="form-group">
                                             <label for="edit_outcome">نتیجه</label>
-                                            <textarea class="form-control" id="edit_outcome" v-model="edit_outcome" style="min-height:150px;"></textarea>
+                                            <textarea class="form-control"  v-if="selectedOption != 'ارسال خبرنامه'" id="edit_outcome" v-model="edit_outcome" style="min-height:150px;"></textarea>
+                                            <select class="form-select" v-else v-model="edit_outcome" @change="handleOptionChange" aria-label="Default select example">
+                                                <option v-for="item in Newsletter" :value="item.type">{{item.type}}</option>
+                                            </select>                                             
                                         </div>
                                     </div>                                                                                          
                                 </div>                                                          
@@ -146,26 +171,25 @@
             <div class="timeline">
                 <div class="timeline-row" v-for="item in WorkList">
                     <div class="timeline-time">
-                        {{item.employee.username}} - {{item.date}}
+                        {{item.employee.username}} - {{convertDateToPersian(item.date)}}
                         <button class="btn btn-danger btn-sm" @click="deleteWorkReport(item.id)"><i class="fa fa-trash"></i></button>
-                        <button class="btn btn-info btn-sm" @click="WorkReportId = item.id;edit_date= item.date;
+                        <button class="btn btn-info btn-sm" @click="WorkReportId = item.id;edit_date= convertDateToPersian(item.date);
             edit_employee_id = item.employee_id
             edit_start_time=item.start_time;           
             edit_end_time=item.end_time;
             edit_description=item.description;
             edit_outcome=item.outcome;
             edit_project_task=item.project_task;
+            selectedOption = isValueInArray(item.project_task);
             edit_location=item.location;" data-toggle="modal" data-target="#editNewTask"><i class="fa fa-edit"></i></button>
                     </div>
                     <div class="timeline-content">
                         <i class="icon-attachment"></i>
                         <h4>{{item.project_task}}</h4>
                         <p>{{item.description}}</p>
-                        <p>{{item.outcome}}</p>
                         <div class="">
                             <span class="badge badge-pill">
                             </span>
-                            <span class="badge badge-pill">{{item.location}}</span>
                             <span class="badge badge-pill">{{item.start_time}} - {{item.end_time}}</span>
                         </div>                        
                     </div>
@@ -200,11 +224,13 @@
 
 <script>
 import Swal from 'sweetalert2';
+import jalaliMoment from "jalali-moment";
 
 export default {
     data() {
         return {
             WorkList:[],
+            Newsletter:[],
             WorkReportId:'',
             date: '', 
             start_time:'',           
@@ -220,7 +246,8 @@ export default {
             edit_outcome:'',         
             edit_project_task:'',   
             edit_location:'', 
-            edit_employee_id:'',              
+            edit_employee_id:'',  
+            selectedOption:'',            
             pagination: {
                 total: 0,
                 per_page: 2,
@@ -236,8 +263,51 @@ export default {
     components: {  },  
     mounted() {
         this.getWorkList();
+        this.getNewsletter();
     },
-    methods: {
+    methods: {  
+        convertDateToPersian(date){
+            return jalaliMoment(date, "YYYY-MM-DD").format("jYYYY/jMM/jDD");
+        },
+        getNewsletter()
+        {
+            axios.get(this.getAppUrl() + 'sanctum/getToken').then(response => {
+                const token = response.data.token;
+                axios.request({
+                    method: 'GET',
+                    url: this.getAppUrl() + 'api/user/WorkReport?action=getNewsletter',
+                    headers: {'Authorization': `Bearer ${token}`}
+                }).then(response => {
+                    this.Newsletter = response.data.Newsletter;                
+                }).catch(error => {
+                    this.checkError(error);
+                });
+            }).catch(error => {
+                this.checkError(error);
+            });
+        },
+        isValueInArray(value){
+            var options = ["سوژه‌یابی","مستندسازی","ارسال خبرنامه","ارسال خبر","ارسال بصر","برنامه نویسی","آموزش"];
+            if(options.includes(value))
+            {
+                return value;
+            }
+            else
+            {
+                return 6;
+            }
+        },
+        handleOptionChange() {
+            if (this.selectedOption === 6) {
+                this.isReadOnly = !this.isReadOnly ? 'readonly' : '';
+                this.project_task = '';
+                this.edit_project_task = '';
+            } else {
+                this.isReadOnly = this.isReadOnly ? 'readonly' : '';
+                this.project_task = this.selectedOption;
+                this.edit_project_task = this.selectedOption;
+            }          
+        },        
         deleteWorkReport(id){
             Swal.fire({
                 title: 'آیا اطمینان دارید؟',
