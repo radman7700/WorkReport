@@ -7,6 +7,7 @@ use Pishgaman\Pishgaman\Repositories\LogRepository;
 use Pishgaman\Pishgaman\Middleware\CheckMenuAccess;
 use Pishgaman\WorkReport\Database\Repository\WorkReportRepository;
 use App\Http\Controllers\Controller;
+use Pishgaman\WorkReport\Database\Models\Newsletter;
 
 class WorkReportController extends Controller
 {
@@ -14,11 +15,12 @@ class WorkReportController extends Controller
         'getWorkList',
         'saveNewWorkReport',
         'deleteWorkReport',
-        'updateWorkReport'
+        'updateWorkReport',
+        'getNewsletter'
     ];
 
     protected $validMethods = [
-        'GET' => ['getWorkList'], // Added 'createAccessLevel' as a valid method-action pair
+        'GET' => ['getWorkList','getNewsletter'], // Added 'createAccessLevel' as a valid method-action pair
         'POST' => ['saveNewWorkReport'], // Added 'createAccessLevel' as a valid action for POST method
         'PUT' => ['updateWorkReport'],
         'DELETE' => ['deleteWorkReport']
@@ -163,5 +165,15 @@ class WorkReportController extends Controller
 
         return response()->json(['WorkList' => $WorkList], 200);
 
+    }
+
+    public function getNewsletter($request)
+    {
+        if (!$this->isValidAction('getNewsletter', 'GET')) {
+            return response()->json(['errors' => 'requestNotAllowed'], 422);
+        }
+
+        $Newsletter = Newsletter::all();
+        return response()->json(['Newsletter' => $Newsletter], 200);
     }
 }
