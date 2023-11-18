@@ -3,6 +3,7 @@
 namespace Pishgaman\WorkReport\Database\Repository;
 
 use Pishgaman\WorkReport\Database\Models\WorkReport;
+use Illuminate\Support\Facades\DB;
 
 class WorkReportRepository
 {
@@ -29,7 +30,12 @@ class WorkReportRepository
         if (isset($options['conditions']) && is_array($options['conditions'])) {
             foreach ($options['conditions'] as $condition) {
                 if (isset($condition['column']) && isset($condition['operator']) && isset($condition['value'])) {
-                    $query->where($condition['column'], $condition['operator'], $condition['value']);
+                    // افزودن شرط به تابع
+                    if ($condition['operator'] === 'between' && is_array($condition['value'])) {
+                        $query->whereBetween($condition['column'], $condition['value']);
+                    } else {
+                        $query->where($condition['column'], $condition['operator'], $condition['value']);
+                    }
                 }
             }
         }
@@ -38,7 +44,17 @@ class WorkReportRepository
         if (isset($options['select']) && is_array($options['select'])) {
             $query->select($options['select']);
         }
-    
+
+        $sum = isset($options['sum']) && is_array($options['sum']) ? $options['sum'] : false;
+
+        if ($sum) {
+            foreach ($sum as $sumOption) {
+                if (isset($sumOption['column'])) {
+                    $query->addSelect(DB::raw("SUM({$sumOption['column']}) as {$sumOption['alias']}"));
+                }
+            }
+        }
+
         // اضافه کردن شمارش رکوردها
         $count = isset($options['count']) && $options['count'] ? true : false;
     
