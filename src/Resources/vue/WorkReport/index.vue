@@ -2,58 +2,158 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="tasks-container" style="height: calc(100vh - 500px);">
+            <div class="tasks-container">
+                <div class="row gutters">
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-6">
+                        <div class="info-tiles">
+                            <div class="info-icon"><i class="fa fa-briefcase"></i></div>
+                            <div class="stats-detail">
+                                <h3>{{ allCount }} / {{ userCount }}</h3>
+                                <p>فعالیت مجموعه / فعالیت شما</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-6">
+                        <div class="info-tiles">
+                            <div class="info-icon"><i class="fa fa-percent"></i></div>
+                            <div class="stats-detail">
+                                <h3>{{ projectPercent }} / {{ totalScore }}</h3>
+                                <p>درصد فعالیت شما / امتیاز شما</p>
+                            </div>
+                        </div>
+                    </div>  
+ 
+                    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-12 col-6">
+                        <div class="info-tiles">
+                            <div class="info-icon"><i class="fa fa-users"></i></div>
+                            <div class="stats-detail">
+                                <h3>{{ findingPeople }}</h3>
+                                <p>سوژه‌یابی</p>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-12 col-6">
+                        <div class="info-tiles">
+                            <div class="info-icon"><i class="fa fa-file"></i></div>
+                            <div class="stats-detail">
+                                <h3>{{ Documentation }}</h3>
+                                <p>مستندسازی</p>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-12 col-6">
+                        <div class="info-tiles">
+                            <div class="info-icon"><i class="fa fa-file"></i></div>
+                            <div class="stats-detail">
+                                <h3>{{ writeBulltan }}</h3>
+                                <p>ارسال خبرنامه (بولتن)</p>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-12 col-6">
+                        <div class="info-tiles">
+                            <div class="info-icon"><i class="fa fa-file"></i></div>
+                            <div class="stats-detail">
+                                <h3>{{ sendNews }}</h3>
+                                <p>ارسال خبر</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-12 col-6">
+                        <div class="info-tiles">
+                            <div class="info-icon"><i class="fa fa-file"></i></div>
+                            <div class="stats-detail">
+                                <h3>{{ sendNewspaper }}</h3>
+                                <p>ارسال بصر</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-12 col-6">
+                        <div class="info-tiles">
+                            <div class="info-icon"><i class="fa fa-file"></i></div>
+                            <div class="stats-detail">
+                                <h3>{{ programDevelop }}</h3>
+                                <p>برنامه نویسی</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-12 col-6">
+                        <div class="info-tiles">
+                            <div class="info-icon"><i class="fa fa-file"></i></div>
+                            <div class="stats-detail">
+                                <h3>{{ teaching }}</h3>
+                                <p>آموزش</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-12 col-6">
+                        <div class="info-tiles">
+                            <div class="info-icon"><i class="fa fa-file"></i></div>
+                            <div class="stats-detail">
+                                <h3>{{ other }}</h3>
+                                <p>سایر</p>
+                            </div>
+                        </div>
+                    </div>                                                                                                                                                                                                                         
+                </div>
                 <div class="modal fade" id="addNewTask" tabindex="-1" role="dialog" aria-labelledby="addNewTaskLabel" aria-hidden="true">
-					<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-dialog modal-xl" role="document">
 						<div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="addNewTaskLabel">ایجاد گزارش کار</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="date= '';start_time='';end_time='';description='';outcome='';project_task=''">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-6">  
                                         <div class="form-group">
-                                            <label for="date">تاریخ</label>
-                                            <input type="text" class="form-control datepicker" readonly id="date" v-model="date">
+                                            <label for="project_task">پروژه <i>*</i></label>
+                                            <select class="form-select" v-model="project_task" aria-label="Default select example">
+                                                <option value="سوژه‌یابی">سوژه‌یابی</option>
+                                                <option value="مستندسازی">مستندسازی</option>
+                                                <option value="ارسال خبرنامه">ارسال خبرنامه (بولتن)</option>
+                                                <option value="ارسال خبر">ارسال خبر</option>
+                                                <option value="ارسال بصر">ارسال بصر</option>
+                                                <option value="برنامه نویسی">برنامه نویسی</option>                                                
+                                                <option value="آموزش">آموزش</option>                                                
+                                                <option value="سایر">سایر</option>
+                                            </select>
+                                        </div>
+                                    </div>                                     
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="date">تاریخ <i>*</i></label>
+                                            <date-picker v-model="date"></date-picker>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-6">
                                         <div class="form-group">
                                             <label for="start_time">زمان شروع</label>
                                             <input type="time" class="form-control" id="start_time" v-model="start_time">
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-6">
                                         <div class="form-group">
                                             <label for="end_time">زمان پایان</label>
                                             <input type="time" class="form-control" id="end_time" v-model="end_time" >
                                         </div>                                                                       
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">  
+                                    </div>                                                                       
+                                    <div class="col-sm-12 col-md-12">                                
                                         <div class="form-group">
-                                            <label for="project_task">وظیفه پروژه</label>
-                                            <input type="text" class="form-control" id="project_task" v-model="project_task">
-                                        </div>
-                                    </div>                                     
-                                    <div class="col-sm-12 col-md-6">  
-                                        <div class="form-group">
-                                            <label for="location">مکان</label>
-                                            <input type="text" class="form-control" id="location" v-model="location">
-                                        </div>  
-                                    </div>                                     
-                                    <div class="col-sm-12 col-md-6">                                
-                                        <div class="form-group">
-                                            <label for="description">توضیحات</label>
+                                            <label for="description">توضیحات <i>*</i></label>
                                             <textarea class="form-control" id="description" v-model="description" style="min-height:150px;"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-6">  
+                                    <div class="col-sm-12 col-md-12">  
                                         <div class="form-group">
-                                            <label for="outcome">نتیجه</label>
-                                            <textarea class="form-control" id="outcome" v-model="outcome" style="min-height:150px;"></textarea>
+                                            <label for="outcome">تعداد</label>
+                                            <input v-if="selectedOption != 'ارسال خبرنامه'" class="form-control" id="outcome" v-model="outcome">
+                                            <select class="form-select" v-else v-model="outcome" @change="handleOptionChange" aria-label="Default select example">
+                                                <option v-for="item in Newsletter" :value="item.type">{{item.type}}</option>
+                                            </select>                                             
                                         </div>
                                     </div>                                                                                          
                                 </div>                                                          
@@ -81,46 +181,52 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-6">  
                                         <div class="form-group">
-                                            <label for="edit_date">تاریخ</label>
-                                            <input type="text" class="form-control datepicker" readonly  id="edit_date" v-model="edit_date" :gdate="edit_date">
+                                            <label for="project_task">پروژه <i>*</i></label>
+                                            <select class="form-select" v-model="edit_project_task" aria-label="Default select example">
+                                                <option value="سوژه‌یابی">سوژه‌یابی</option>
+                                                <option value="مستندسازی">مستندسازی</option>
+                                                <option value="ارسال خبرنامه">ارسال خبرنامه (بولتن)</option>
+                                                <option value="ارسال خبر">ارسال خبر</option>
+                                                <option value="ارسال بصر">ارسال بصر</option>
+                                                <option value="برنامه نویسی">برنامه نویسی</option>
+                                                <option value="آموزش">آموزش</option>                                                
+                                                <option value="سایر">سایر</option>
+                                            </select>
+                                        </div>
+                                    </div>                                     
+                                    <div class="col-sm-12 col-md-6">  
+                                        <div class="form-group">
+                                            <label for="edit_date">تاریخ <i>*</i></label>
+                                            <date-picker v-model="edit_date"></date-picker>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-6">  
                                         <div class="form-group">
                                             <label for="edit_start_time">زمان شروع</label>
                                             <input type="time" class="form-control" id="edit_start_time" v-model="edit_start_time">
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-6">  
                                         <div class="form-group">
                                             <label for="edit_end_time">زمان پایان</label>
                                             <input type="time" class="form-control" id="edit_end_time" v-model="edit_end_time" >
                                         </div>                                                                       
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">  
+                                    </div>                                                                      
+                                    <div class="col-sm-12 col-md-12">                                
                                         <div class="form-group">
-                                            <label for="edit_project_task">وظیفه پروژه</label>
-                                            <input type="text" class="form-control" id="edit_project_task" v-model="edit_project_task">
-                                        </div>
-                                    </div>                                     
-                                    <div class="col-sm-12 col-md-6">  
-                                        <div class="form-group">
-                                            <label for="edit_location">مکان</label>
-                                            <input type="text" class="form-control" id="edit_location" v-model="edit_location">
-                                        </div>  
-                                    </div>                                     
-                                    <div class="col-sm-12 col-md-6">                                
-                                        <div class="form-group">
-                                            <label for="edit_description">توضیحات</label>
+                                            <label for="edit_description">توضیحات <i>*</i></label>
                                             <textarea class="form-control" id="edit_description" v-model="edit_description" style="min-height:150px;"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-6">  
+                                    <div class="col-sm-12 col-md-12">  
                                         <div class="form-group">
-                                            <label for="edit_outcome">نتیجه</label>
-                                            <textarea class="form-control" id="edit_outcome" v-model="edit_outcome" style="min-height:150px;"></textarea>
+                                            <label for="edit_outcome">تعداد</label>
+                                            <input class="form-control"  v-if="selectedOption != 'ارسال خبرنامه'" id="edit_outcome" v-model="edit_outcome">
+                                            <select class="form-select" v-else v-model="edit_outcome" @change="handleOptionChange" aria-label="Default select example">
+                                                <option v-for="item in Newsletter" :value="item.type">{{item.type}}</option>
+                                            </select>                                             
                                         </div>
                                     </div>                                                                                          
                                 </div>                                                          
@@ -137,35 +243,65 @@
                         </div>
                     </div>
                 </div>                       
-                <div class="tasks-header">
-					<h3>امروز <span class="date" id="todays-date">10 November 2023</span></h3>
-					<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addNewTask">افزودن گزارش کار</button>
+                <div class="tasks-header row">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-6">
+                        <div class="form-group">  
+                            <h3>از: </h3> <date-picker v-model="date_start"></date-picker>
+                        </div>
+                    </div> 
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-6">
+                        <div class="form-group">  
+                            <h3>تا: </h3> <date-picker v-model="date_end"></date-picker>
+                        </div>
+                    </div>                                                  
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-6">
+                        <div class="form-group">                    
+                            <h3>پروژه:</h3>
+                            <select class="form-select" aria-label="Default select example" v-model="project_task_search">
+                                <option value=""></option>
+                                <option value="سوژه‌یابی">سوژه‌یابی</option>
+                                <option value="مستندسازی">مستندسازی</option>
+                                <option value="ارسال خبرنامه">ارسال خبرنامه (بولتن)</option>
+                                <option value="ارسال خبر">ارسال خبر</option>
+                                <option value="ارسال بصر">ارسال بصر</option>
+                                <option value="برنامه نویسی">برنامه نویسی</option>
+                                <option value="آموزش">آموزش</option>                                                
+                                <option value="سایر">سایر</option>
+                            </select>  
+                        </div>
+                    </div>                  
+                    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-12 col-6">
+                        <div class="form-group"> 
+                            <h3>ابزار</h3>
+                            <button class="btn btn-info btn-lg" @click="runNewGet()" title="اعمال فیلتر"><i class="fa fa-search"></i></button>
+                            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addNewTask" title="افزودن گزارش کار"><i class="fa fa-plus"></i></button>
+                        </div>
+                    </div>   
 				</div>
             </div>
                         
             <div class="timeline">
                 <div class="timeline-row" v-for="item in WorkList">
                     <div class="timeline-time">
-                        {{item.employee.username}} - {{item.date}}
+                        {{item.employee.username}} - {{convertDateToPersian(item.date)}}
                         <button class="btn btn-danger btn-sm" @click="deleteWorkReport(item.id)"><i class="fa fa-trash"></i></button>
-                        <button class="btn btn-info btn-sm" @click="WorkReportId = item.id;edit_date= item.date;
+                        <button class="btn btn-info btn-sm" @click="WorkReportId = item.id;edit_date= convertDateToPersian(item.date);
             edit_employee_id = item.employee_id
             edit_start_time=item.start_time;           
             edit_end_time=item.end_time;
             edit_description=item.description;
             edit_outcome=item.outcome;
             edit_project_task=item.project_task;
+            selectedOption = isValueInArray(item.project_task);
             edit_location=item.location;" data-toggle="modal" data-target="#editNewTask"><i class="fa fa-edit"></i></button>
                     </div>
                     <div class="timeline-content">
                         <i class="icon-attachment"></i>
                         <h4>{{item.project_task}}</h4>
                         <p>{{item.description}}</p>
-                        <p>{{item.outcome}}</p>
                         <div class="">
                             <span class="badge badge-pill">
                             </span>
-                            <span class="badge badge-pill">{{item.location}}</span>
                             <span class="badge badge-pill">{{item.start_time}} - {{item.end_time}}</span>
                         </div>                        
                     </div>
@@ -200,11 +336,13 @@
 
 <script>
 import Swal from 'sweetalert2';
+import jalaliMoment from "jalali-moment";
 
 export default {
     data() {
         return {
             WorkList:[],
+            Newsletter:[],
             WorkReportId:'',
             date: '', 
             start_time:'',           
@@ -220,7 +358,8 @@ export default {
             edit_outcome:'',         
             edit_project_task:'',   
             edit_location:'', 
-            edit_employee_id:'',              
+            edit_employee_id:'',  
+            selectedOption:'',            
             pagination: {
                 total: 0,
                 per_page: 2,
@@ -230,14 +369,109 @@ export default {
                 last_page: 1
             },
             offset:4,
-            itemsPerPage:20,             
+            itemsPerPage:20, 
+            allCount: 0,
+            userCount: 0,
+            projectPercent:0,
+            findingPeople:0,
+            Documentation:0,
+            writeBulltan:0,
+            sendNews:0,
+            sendNewspaper:0,
+            programDevelop:0,
+            teaching:0,
+            other:0,  
+            totalScore:0,   
+            isReadOnly:'readonly', 
+            date_start:'',  
+            date_end:'',
+            project_task_search:'' 
         }
     },
     components: {  },  
     mounted() {
         this.getWorkList();
+        this.getNewsletter();
+        this.getUserStatistics();
     },
-    methods: {
+    methods: {  
+        runNewGet()
+        {
+            this.getWorkList(1);
+            this.getUserStatistics();
+        },
+        convertDateToPersian(date){
+            return jalaliMoment(date, "YYYY-MM-DD").format("jYYYY/jMM/jDD");
+        },
+        convertDateToMiladi(date){
+            console.log(date);
+            return jalaliMoment.from(input, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY/MM/DD');
+        },
+        getUserStatistics()
+        {
+            axios.get(this.getAppUrl() + 'sanctum/getToken').then(response => {
+                const token = response.data.token;
+                const dateStart = this.date_start;
+                const dateEnd = this.date_end;
+                const project_task_search = this.project_task_search
+
+                axios.request({
+                    method: 'GET',
+                    url: this.getAppUrl() + 'api/user/WorkReport?action=userStatistics&date_start='+dateStart+'&date_end='+dateEnd+'&project_task_search='+project_task_search,
+                    headers: {'Authorization': `Bearer ${token}`}
+                }).then(response => {
+                    this.allCount = response.data.allCount;                
+                    this.userCount = response.data.userCount; 
+                    this.projectPercent = response.data.projectPercent              
+                    this.findingPeople = response.data.findingPeople              
+                    this.Documentation = response.data.Documentation  
+                    this.writeBulltan = response.data.writeBulltan  
+                    this.sendNews = response.data.sendNews  
+                    this.sendNewspaper = response.data.sendNewspaper  
+                    this.programDevelop = response.data.programDevelop  
+                    this.teaching = response.data.teaching  
+                    this.other = response.data.other
+                    this.totalScore = response.data.totalScore
+                }).catch(error => {
+                    this.checkError(error);
+                });
+            }).catch(error => {
+                this.checkError(error);
+            });
+        },        
+        getNewsletter()
+        {
+            axios.get(this.getAppUrl() + 'sanctum/getToken').then(response => {
+                const token = response.data.token;
+                axios.request({
+                    method: 'GET',
+                    url: this.getAppUrl() + 'api/user/WorkReport?action=getNewsletter',
+                    headers: {'Authorization': `Bearer ${token}`}
+                }).then(response => {
+                    this.Newsletter = response.data.Newsletter;                
+                }).catch(error => {
+                    this.checkError(error);
+                });
+            }).catch(error => {
+                this.checkError(error);
+            });
+        },
+        isValueInArray(value){
+            var options = ["سوژه‌یابی","مستندسازی","ارسال خبرنامه","ارسال خبر","ارسال بصر","برنامه نویسی","آموزش"];
+            if(options.includes(value))
+            {
+                return value;
+            }
+            else
+            {
+                return 6;
+            }
+        },
+        handleOptionChange() {
+            this.isReadOnly =  'readonly';
+            this.project_task = this.selectedOption;
+            this.edit_project_task = this.selectedOption;
+        },        
         deleteWorkReport(id){
             Swal.fire({
                 title: 'آیا اطمینان دارید؟',
@@ -282,7 +516,8 @@ export default {
                 const token = response.data.token;
                 const WorkReportId = this.WorkReportId
                 const employee_id = this.edit_employee_id;
-                const date = $('#edit_date').data('gdate'); 
+                const date = this.edit_date
+                console.log(date);
                 const start_time = this.edit_start_time;
                 const end_time = this.edit_end_time;
                 const description = this.edit_description;
@@ -297,7 +532,7 @@ export default {
                     data: { WorkReportId , employee_id , date, start_time , end_time , description , outcome , project_task , action , action }
                 }).then(response => {
                     Swal.fire(
-                        'اضافه شد!',
+                        'ویرایش شد!',
                         'گزارش کار شما با موفقیت ویرایش شد.',
                         'success'
                     );   
@@ -313,7 +548,7 @@ export default {
             axios.get(this.getAppUrl() + 'sanctum/getToken').then(response => {
                 
                 const token = response.data.token;
-                const date = $('#date').data('gdate'); 
+                const date = this.date
                 const start_time = this.start_time;
                 const end_time = this.end_time;
                 const description = this.description;
@@ -332,7 +567,8 @@ export default {
                         'گزارش کار شما با موفقیت اضافه شد.',
                         'success'
                     );   
-                    this.getWorkList();       
+                    this.getWorkList();   
+                    this.getUserStatistics();
                 }).catch(error => {
                     this.checkError(error);
                 });        
@@ -343,9 +579,13 @@ export default {
         getWorkList(page = 1) {   
             axios.get(this.getAppUrl() + 'sanctum/getToken').then(response => {
                 const token = response.data.token;
+                const dateStart = this.date_start;
+                const dateEnd = this.date_end;
+                const project_task_search = this.project_task_search
+
                 axios.request({
                     method: 'GET',
-                    url: this.getAppUrl() + 'api/user/WorkReport?action=getWorkList&page='+page,
+                    url: this.getAppUrl() + 'api/user/WorkReport?action=getWorkList&page='+page+'&date_start='+dateStart+'&date_end='+dateEnd+'&project_task_search='+project_task_search,
                     headers: {'Authorization': `Bearer ${token}`}
                 }).then(response => {
                     this.fetchPagesDetails(response.data.WorkList);        
